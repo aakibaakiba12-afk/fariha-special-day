@@ -1,11 +1,11 @@
 import streamlit as st
 import time
 from datetime import datetime
-import os
 
 # Page Setup
 st.set_page_config(page_title="HBD Fariha!", page_icon="🎂")
 
+# Custom Design
 st.markdown("""
     <style>
     .stApp { background-color: #ffffff; } 
@@ -42,13 +42,8 @@ st.markdown("""
         font-size: 16px; margin-top: 40px; padding-bottom: 20px;
     }
     .stButton>button {
-        background-color: #ff4081;
-        color: white;
-        font-size: 25px;
-        font-weight: bold;
-        border-radius: 15px;
-        height: 3em;
-        width: 100%;
+        background-color: #ff4081; color: white; font-size: 25px;
+        font-weight: bold; border-radius: 15px; height: 3em; width: 100%;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -75,9 +70,9 @@ st.markdown(f'<div class="age-fact">🌟 Fariha, you have been awesome for {days
 st.write("")
 if st.button("CLICK HEREEEEEEEEEE 🎈✨", use_container_width=True):
     with st.empty():
-        for i in range(12): 
+        for i in range(8): 
             st.balloons()
-            time.sleep(2.5)
+            time.sleep(2)
 
 st.write("---")
 
@@ -94,14 +89,12 @@ if "blown" not in st.session_state:
 if "prank_step" not in st.session_state:
     st.session_state.prank_step = 0
 
-# LOCAL FILE ব্যবহার করা হচ্ছে (এটি মিস হবে না)
-if os.path.exists("cake.gif"):
-    st.image("cake.gif", use_container_width=True)
-else:
-    st.image("https://giphy.com", use_container_width=True)
+# এই লিঙ্কগুলো সরাসরি কাজ করবে
+cake_gif = "https://giphy.com"
+st.image(cake_gif, use_container_width=True)
 
 if not st.session_state.blown:
-    st.markdown('<p class="cake-text">🕯️ You made it to the end! Now, blow the candle...</p>', unsafe_allow_html=True)
+    st.markdown('<p class="cake-text">🕯️ Blow the candle to start the magic!</p>', unsafe_allow_html=True)
     if st.button("Blow the Candle! 💨", key="blow_btn"):
         st.session_state.blown = True
         st.rerun()
@@ -110,13 +103,11 @@ else:
     st.components.v1.html("""<iframe width="0" height="0" src="https://youtube.com" frameborder="0" allow="autoplay"></iframe>""", height=0)
     st.snow() 
     
-    if os.path.exists("fireworks.gif"):
-        st.image("fireworks.gif", use_container_width=True)
-    else:
-        st.image("https://giphy.com", use_container_width=True)
+    fireworks_gif = "https://giphy.com"
+    st.image(fireworks_gif, use_container_width=True)
     
     time.sleep(3)
-    st.markdown('<p class="cake-text">💨 The candle is out! Now listen to the truth...</p>', unsafe_allow_html=True)
+    st.markdown('<p class="cake-text">💨 Now listen to the truth... Click below!</p>', unsafe_allow_html=True)
 
     if st.session_state.prank_step == 0:
         if st.button("Click for the first truth! 😂"):
@@ -124,7 +115,7 @@ else:
             st.rerun()
     
     if st.session_state.prank_step >= 1:
-        st.error("তুই একটা কুত্তা! 🐶")S
+        st.error("তুই একটা কুত্তা! 🐶")
         if st.session_state.prank_step == 1:
             if st.button("Next truth? 😜"):
                 st.session_state.prank_step = 2
@@ -140,10 +131,7 @@ else:
     if st.session_state.prank_step >= 3:
         st.info("পাগললললললললললললললললললললললললললললললললললললল! 🤪")
         st.success("Happy Birthday Fariha! ❤️")
-        st.markdown(f"""<div class="special-wish">"To the person who knows all my secrets and still likes me—Happy Birthday! I'm so lucky to have a best friend like you. Have the best day ever! 🎉"</div>""", unsafe_allow_html=True)
-        if st.button("🔓 Click to reveal a secret message"):
-            st.info("I hope our friendship lasts forever! ❤️ Besties for life!")
+        st.markdown("""<div class="special-wish">"To the person who knows all my secrets and still likes me—Happy Birthday! I'm so lucky to have a best friend like you. Have the best day ever! 🎉"</div>""", unsafe_allow_html=True)
 
 st.markdown('<div class="footer">Made with ❤️ by your bestfriend</div>', unsafe_allow_html=True)
 st.components.v1.html("""<iframe src="https://youtube.com" width="0" height="0" allow="autoplay"></iframe>""", height=0)
-xS
