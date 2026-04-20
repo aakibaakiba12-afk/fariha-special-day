@@ -3,49 +3,36 @@ import time
 from datetime import datetime
 
 # Page Setup
-st.set_page_config(page_title="HBD Fariha!", page_icon="🕯️")
+st.set_page_config(page_title="HBD Fariha!", page_icon="🎂")
 
 # Custom Design
 st.markdown("""
     <style>
-    .stApp { background-color: #e3f2fd; } 
+    .stApp { background-color: #ffffff; } 
     .countdown-box {
-        font-size: 25px; color: #0d47a1; text-align: center;
-        background: #ffffff; padding: 15px; border-radius: 15px;
-        border: 2px dashed #2196f3; font-weight: bold;
+        font-size: 25px; color: #d81b60; text-align: center;
+        background: #f8f9fa; padding: 15px; border-radius: 15px;
+        border: 2px dashed #d81b60; font-weight: bold;
     }
     .age-fact {
-        font-size: 20px; color: #1565c0; text-align: center;
+        font-size: 22px; color: #d81b60; text-align: center;
         margin-top: 15px; font-weight: bold;
-        background: #e1f5fe; padding: 10px; border-radius: 10px;
     }
-    .wish-scroll {
-        font-size: 18px; color: #0d47a1; text-align: center;
-        height: 150px; overflow-y: scroll; border: 2px solid #2196f3;
-        padding: 10px; border-radius: 10px;
+    .wish-text {
+        font-size: 20px; color: #ff4081; font-weight: bold;
+        text-align: center; line-height: 2.0;
+        margin-bottom: 10px;
     }
     .cake-text {
         font-size: 24px; color: #d81b60; text-align: center; font-weight: bold;
-        margin-top: 15px;
+        margin-top: 20px;
     }
-    .cake-img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 80% !important; /* কেক বড় করার জন্য */
-        border-radius: 20px;
-    }
-    .make-a-wish {
-        font-size: 40px; color: #ff1493; text-align: center;
-        font-weight: bold; animation: blinker 1s linear infinite;
-    }
-    @keyframes blinker { 50% { opacity: 0; } }
     .special-wish {
         font-size: 20px; color: #1a237e; text-align: center; font-style: italic;
-        background: #bbdefb; padding: 20px; border-radius: 10px; margin-top: 30px;
+        background: #fce4ec; padding: 20px; border-radius: 10px; margin-top: 30px;
     }
     .footer {
-        text-align: center; color: #1976d2; font-weight: bold;
+        text-align: center; color: #880e4f; font-weight: bold;
         font-size: 16px; margin-top: 40px; padding-bottom: 20px;
     }
     </style>
@@ -69,65 +56,75 @@ else:
 days_alive = (now - birth_date).days
 st.markdown(f'<div class="age-fact">🌟 Fariha, you have been awesome for {days_alive:,} days! 🌟</div>', unsafe_allow_html=True)
 
-st.balloons()
-
-# --- 3. 100 WISHES ---
-st.markdown('<p style="text-align:center; font-size:22px; color:#0d47a1; margin-top:15px;">✨ 100 Special Wishes for Fariha ✨</p>', unsafe_allow_html=True)
-wishes = "".join([f"{i}. Happy Birthday to you Fariha 🎂💖<br>" for i in range(1, 101)])
-st.markdown(f'<div class="wish-scroll">{wishes}</div>', unsafe_allow_html=True)
+# --- 3. MAGIC BALLOON BUTTON ---
+if st.button("🎁 Click for Balloons! 🎈", use_container_width=True):
+    st.balloons()
 
 st.write("---")
 
-# --- 4. CAKE & SURPRISE ---
+# --- 4. 100 WISHES ---
+st.markdown('<p style="text-align:center; font-size:25px; color:#d81b60;">✨ 100 Special Wishes for Fariha ✨</p>', unsafe_allow_html=True)
+for i in range(1, 101):
+    st.markdown(f'<p class="wish-text">{i}. Happy Birthday to you Fariha 🎂💖</p>', unsafe_allow_html=True)
+
+st.write("---")
+
+# --- 5. CAKE & SURPRISE ---
 if "blown" not in st.session_state:
     st.session_state.blown = False
+if "prank_step" not in st.session_state:
+    st.session_state.prank_step = 0
 
-# বড় গোলাপি কেক
-st.markdown('<img src="https://giphy.com" class="cake-img">', unsafe_allow_html=True)
+cake_url = "https://giphy.com"
+st.image(cake_url, use_container_width=True)
 
 if not st.session_state.blown:
-    st.markdown('<p class="cake-text">🕯️ Blow the candle to start the surprise...</p>', unsafe_allow_html=True)
+    st.markdown('<p class="cake-text">🕯️ Blow the candle to start the magic!</p>', unsafe_allow_html=True)
     if st.button("Blow the Candle! 💨", use_container_width=True):
         st.session_state.blown = True
         st.rerun()
 else:
+    # শব্দসহ আতশবাজি
+    st.components.v1.html("""<iframe width="0" height="0" src="https://youtube.com" frameborder="0" allow="autoplay"></iframe>""", height=0)
     st.snow() 
-    st.markdown('<p class="make-a-wish">✨ Make a Wish! ✨</p>', unsafe_allow_html=True)
+    st.markdown('<p style="font-size: 40px; color: #ff1493; text-align: center; font-weight: bold;">✨ Make a Wish! ✨</p>', unsafe_allow_html=True)
     
-    st.markdown('<img src="https://giphy.com" style="display:block; margin:auto; width:100%;">', unsafe_allow_html=True)
+    # আতশবাজি
+    fireworks_url = "https://giphy.com"
+    st.image(fireworks_url)
     
-    time.sleep(2)
-    st.markdown('<p class="cake-text">💨 Now listen to the truth...</p>', unsafe_allow_html=True)
+    st.write("---")
+    st.markdown('<p class="cake-text">💨 Now listen to the truth... Click the button below!</p>', unsafe_allow_html=True)
+
+    # এক এক ক্লিকে এক একটা মেসেজ আসার সিস্টেম
+    if st.session_state.prank_step == 0:
+        if st.button("Click for the first truth! 😂"):
+            st.session_state.prank_step = 1
+            st.rerun()
     
-    with st.empty():
-        for i in range(3): 
-            st.balloons()
-            time.sleep(1)
-
-    # --- PRANK MESSAGES ---
-    st.error("তুই একটা কুত্তা! 🐶")
-    st.warning("তুই একটা ছাগল! 🐐")
-    st.info("পাগললললললললললললললললললললললললললললললললললললল! 🤪")
+    if st.session_state.prank_step >= 1:
+        st.error("তুই একটা কুত্তা! 🐶")
+        if st.session_state.prank_step == 1:
+            if st.button("Next truth? 😜"):
+                st.session_state.prank_step = 2
+                st.rerun()
     
-    st.success("Happy Birthday Fariha! ❤️")
+    if st.session_state.prank_step >= 2:
+        st.warning("তুই একটা ছাগল! 🐐")
+        if st.session_state.prank_step == 2:
+            if st.button("Final truth? 🤪"):
+                st.session_state.prank_step = 3
+                st.rerun()
+    
+    if st.session_state.prank_step >= 3:
+        st.info("পাগললললললললললললললললললললললললললললললললললললল! 🤪")
+        st.success("Happy Birthday Fariha! ❤️")
+        st.markdown(f"""<div class="special-wish">"To the person who knows all my secrets and still likes me—Happy Birthday! I'm so lucky to have a best friend like you. Have the best day ever! 🎉"</div>""", unsafe_allow_html=True)
+        if st.button("🔓 Click to reveal a secret message"):
+            st.info("I hope our friendship lasts forever! ❤️ Besties for life!")
 
-    # --- SPECIAL MESSAGE ---
-    st.markdown("""
-        <div class="special-wish">
-        "To the person who knows all my secrets and still likes me—Happy Birthday! 
-        I'm so lucky to have a best friend like you. Have the best day ever! 🎉"
-        </div>
-    """, unsafe_allow_html=True)
-
-    # --- SECRET MESSAGE BUTTON ---
-    if st.button("🔓 Click to reveal a secret message"):
-        st.info("I hope our friendship lasts forever! ❤️ Besties for life!")
-
-# --- 5. FOOTER ---
+# --- 6. FOOTER ---
 st.markdown('<div class="footer">Made with ❤️ by your bestfriend</div>', unsafe_allow_html=True)
 
-# Music
-st.components.v1.html(
-    """<iframe src="https://youtube.com" width="0" height="0" allow="autoplay"></iframe>""",
-    height=0,
-)
+# Background Music
+st.components.v1.html("""<iframe src="https://youtube.com" width="0" height="0" allow="autoplay"></iframe>""", height=0)
