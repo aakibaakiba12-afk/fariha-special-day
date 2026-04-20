@@ -1,11 +1,11 @@
 import streamlit as st
 import time
 from datetime import datetime
+import os
 
 # Page Setup
 st.set_page_config(page_title="HBD Fariha!", page_icon="🎂")
 
-# Custom Design
 st.markdown("""
     <style>
     .stApp { background-color: #ffffff; } 
@@ -74,12 +74,10 @@ st.markdown(f'<div class="age-fact">🌟 Fariha, you have been awesome for {days
 # --- 3. BIG BALLOON BUTTON ---
 st.write("")
 if st.button("CLICK HEREEEEEEEEEE 🎈✨", use_container_width=True):
-    # Loop for 30 seconds of balloons
     with st.empty():
         for i in range(12): 
             st.balloons()
             time.sleep(2.5)
-    st.toast("🎈 Hope you liked the balloons, Fariha!")
 
 st.write("---")
 
@@ -96,8 +94,11 @@ if "blown" not in st.session_state:
 if "prank_step" not in st.session_state:
     st.session_state.prank_step = 0
 
-# Large Cake Image
-st.image("https://giphy.com", use_container_width=True)
+# LOCAL FILE ব্যবহার করা হচ্ছে (এটি মিস হবে না)
+if os.path.exists("cake.gif"):
+    st.image("cake.gif", use_container_width=True)
+else:
+    st.image("https://giphy.com", use_container_width=True)
 
 if not st.session_state.blown:
     st.markdown('<p class="cake-text">🕯️ You made it to the end! Now, blow the candle...</p>', unsafe_allow_html=True)
@@ -105,27 +106,25 @@ if not st.session_state.blown:
         st.session_state.blown = True
         st.rerun()
 else:
-    # "Make a Wish" appears right after blowing
     st.markdown('<p class="make-a-wish">✨ Make a Wish! ✨</p>', unsafe_allow_html=True)
-    
-    # Fireworks Sound (20 seconds)
     st.components.v1.html("""<iframe width="0" height="0" src="https://youtube.com" frameborder="0" allow="autoplay"></iframe>""", height=0)
     st.snow() 
     
-    # Fireworks Image
-    st.image("https://giphy.com", use_container_width=True)
+    if os.path.exists("fireworks.gif"):
+        st.image("fireworks.gif", use_container_width=True)
+    else:
+        st.image("https://giphy.com", use_container_width=True)
     
     time.sleep(3)
     st.markdown('<p class="cake-text">💨 The candle is out! Now listen to the truth...</p>', unsafe_allow_html=True)
 
-    # Prank Messages (In Bengali as requested)
     if st.session_state.prank_step == 0:
         if st.button("Click for the first truth! 😂"):
             st.session_state.prank_step = 1
             st.rerun()
     
     if st.session_state.prank_step >= 1:
-        st.error("তুই একটা কুত্তা! 🐶")
+        st.error("তুই একটা কুত্তা! 🐶")S
         if st.session_state.prank_step == 1:
             if st.button("Next truth? 😜"):
                 st.session_state.prank_step = 2
@@ -145,8 +144,6 @@ else:
         if st.button("🔓 Click to reveal a secret message"):
             st.info("I hope our friendship lasts forever! ❤️ Besties for life!")
 
-# --- 6. FOOTER ---
 st.markdown('<div class="footer">Made with ❤️ by your bestfriend</div>', unsafe_allow_html=True)
-
-# Background Music
 st.components.v1.html("""<iframe src="https://youtube.com" width="0" height="0" allow="autoplay"></iframe>""", height=0)
+xS
