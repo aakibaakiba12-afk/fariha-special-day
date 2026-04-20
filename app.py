@@ -27,6 +27,12 @@ st.markdown("""
         font-size: 24px; color: #d81b60; text-align: center; font-weight: bold;
         margin-top: 20px;
     }
+    .make-a-wish {
+        font-size: 50px; color: #ff1493; text-align: center;
+        font-weight: bold; animation: blinker 1s linear infinite;
+        margin-top: 20px;
+    }
+    @keyframes blinker { 50% { opacity: 0; } }
     .special-wish {
         font-size: 20px; color: #1a237e; text-align: center; font-style: italic;
         background: #fce4ec; padding: 20px; border-radius: 10px; margin-top: 30px;
@@ -35,11 +41,19 @@ st.markdown("""
         text-align: center; color: #880e4f; font-weight: bold;
         font-size: 16px; margin-top: 40px; padding-bottom: 20px;
     }
+    .stButton>button {
+        background-color: #ff4081;
+        color: white;
+        font-size: 25px;
+        font-weight: bold;
+        border-radius: 15px;
+        height: 3em;
+        width: 100%;
+    }
     </style>
     """, unsafe_allow_html=True)
 
 # --- 1. COUNTDOWN ---
-birth_date = datetime(2011, 5, 3) 
 target_date = datetime(2026, 5, 3) 
 now = datetime.now()
 diff = target_date - now
@@ -53,12 +67,19 @@ else:
     st.markdown('<div class="countdown-box">🎉 Today is Fariha\'s Special Day! 🎉</div>', unsafe_allow_html=True)
 
 # --- 2. AGE FUN FACT ---
+birth_date = datetime(2011, 5, 3) 
 days_alive = (now - birth_date).days
 st.markdown(f'<div class="age-fact">🌟 Fariha, you have been awesome for {days_alive:,} days! 🌟</div>', unsafe_allow_html=True)
 
-# --- 3. MAGIC BALLOON BUTTON ---
-if st.button("🎁 Click for Balloons! 🎈", use_container_width=True):
-    st.balloons()
+# --- 3. BIG BALLOON BUTTON ---
+st.write("")
+if st.button("CLICK HEREEEEEEEEEE 🎈✨", use_container_width=True):
+    # Loop for 30 seconds of balloons
+    with st.empty():
+        for i in range(12): 
+            st.balloons()
+            time.sleep(2.5)
+    st.toast("🎈 Hope you liked the balloons, Fariha!")
 
 st.write("---")
 
@@ -75,28 +96,29 @@ if "blown" not in st.session_state:
 if "prank_step" not in st.session_state:
     st.session_state.prank_step = 0
 
-cake_url = "https://giphy.com"
-st.image(cake_url, use_container_width=True)
+# Large Cake Image
+st.image("https://giphy.com", use_container_width=True)
 
 if not st.session_state.blown:
-    st.markdown('<p class="cake-text">🕯️ Blow the candle to start the magic!</p>', unsafe_allow_html=True)
-    if st.button("Blow the Candle! 💨", use_container_width=True):
+    st.markdown('<p class="cake-text">🕯️ You made it to the end! Now, blow the candle...</p>', unsafe_allow_html=True)
+    if st.button("Blow the Candle! 💨", key="blow_btn"):
         st.session_state.blown = True
         st.rerun()
 else:
-    # শব্দসহ আতশবাজি
+    # "Make a Wish" appears right after blowing
+    st.markdown('<p class="make-a-wish">✨ Make a Wish! ✨</p>', unsafe_allow_html=True)
+    
+    # Fireworks Sound (20 seconds)
     st.components.v1.html("""<iframe width="0" height="0" src="https://youtube.com" frameborder="0" allow="autoplay"></iframe>""", height=0)
     st.snow() 
-    st.markdown('<p style="font-size: 40px; color: #ff1493; text-align: center; font-weight: bold;">✨ Make a Wish! ✨</p>', unsafe_allow_html=True)
     
-    # আতশবাজি
-    fireworks_url = "https://giphy.com"
-    st.image(fireworks_url)
+    # Fireworks Image
+    st.image("https://giphy.com", use_container_width=True)
     
-    st.write("---")
-    st.markdown('<p class="cake-text">💨 Now listen to the truth... Click the button below!</p>', unsafe_allow_html=True)
+    time.sleep(3)
+    st.markdown('<p class="cake-text">💨 The candle is out! Now listen to the truth...</p>', unsafe_allow_html=True)
 
-    # এক এক ক্লিকে এক একটা মেসেজ আসার সিস্টেম
+    # Prank Messages (In Bengali as requested)
     if st.session_state.prank_step == 0:
         if st.button("Click for the first truth! 😂"):
             st.session_state.prank_step = 1
